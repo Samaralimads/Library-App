@@ -1,0 +1,51 @@
+.bookContainer {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+}
+
+.leftColumn {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+.bookImg {
+  width: 20rem; /* Adjust the width as needed */
+  height: auto;
+}
+
+.bookDetails {
+  margin-top: 20px;
+}
+
+.buttons {
+  margin-top: 10px; /* Add margin between the buttons */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.buttons button {
+  margin-bottom: 10px; /* Display each button on a new line */
+}
+
+.rightColumn {
+  flex-grow: 1;
+  margin-left: 40px;
+  margin-right: 30px;
+  text-align: justify;
+  font-size: 20px;
+}
+
+/* Add responsive styles for smaller screens if necessary */
+@media (max-width: 768px) {
+  .bookContainer {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .rightColumn {
+    margin-left: 0;
+    margin-top: 20px;
+  }
+}

@@ -1,0 +1,36 @@
+.Navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #f0f0f0;
+  gap: 0px;
+  height: min-content;
+  padding: 100px 0 100px;
+  position: relative;
+  width: 100%;
+}
+
+.navLogo {
+  margin-right: 20px;
+}
+
+.navLinks {
+  display: flex;
+  justify-content: flex-end; /* Align links to the far end of the container */
+  align-items: center;
+}
+
+.navLink {
+  margin-right: 15px;
+  text-decoration: none;
+  font-size: 20px;
+  color: #333;
+}
+
+.searchBar {
+  margin-left: 10px;
+  padding: 5px;
+  border-radius: 50px;
+  border: 1px solid black;
+  font-size: 17px;
+}
