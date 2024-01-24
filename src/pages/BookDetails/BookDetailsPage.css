@@ -10,7 +10,7 @@
   text-align: center;
 }
 .bookImg {
-  width: 20rem; /* Adjust the width as needed */
+  width: 20rem;
   height: auto;
 }
 
@@ -19,14 +19,16 @@
 }
 
 .buttons {
-  margin-top: 10px; /* Add margin between the buttons */
+  margin-top: 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
 .buttons button {
-  margin-bottom: 10px; /* Display each button on a new line */
+  margin-bottom: 10px;
+  width: 8rem;
+  height: 2rem;
 }
 
 .rightColumn {
@@ -37,7 +39,6 @@
   font-size: 20px;
 }
 
-/* Add responsive styles for smaller screens if necessary */
 @media (max-width: 768px) {
   .bookContainer {
     flex-direction: column;

@@ -1,0 +1,54 @@
+.book-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(4, auto);
+  gap: 20px;
+}
+
+.book-item {
+  text-align: center;
+}
+
+.book-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.book-image {
+  max-width: 100%;
+  height: auto;
+  height: 200px;
+}
+
+.bookTitle {
+  font-size: 17px;
+  margin: 10px 0 0;
+}
+
+.bookAuthor {
+  font-size: 15px;
+}
+
+.btnContainer {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.previousBtn,
+.nextBtn {
+  padding: 10px 20px;
+  margin: 0 10px;
+  width: 8rem;
+  cursor: pointer;
+  background-color: #0000ff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+}
+
+.previousBtn:hover,
+.nextBtn:hover {
+  background-color: #0056b3;
+}

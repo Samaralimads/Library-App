@@ -1,0 +1,32 @@
+.pageContainer {
+  display: flex;
+}
+
+.sidebar {
+  width: 200px;
+  background-color: #fdfbf9;
+  padding: 10px;
+}
+
+.sidebar button {
+  display: block;
+  width: 100%;
+  margin-bottom: 5px;
+  padding: 8px;
+  background-color: #f2ead9;
+  color: black;
+  border: none;
+  text-align: left;
+  text-decoration: none;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.sidebar button:hover {
+  background-color: #f6ead5;
+}
+
+.mainContent {
+  flex-grow: 1;
+  padding: 10px;
+}

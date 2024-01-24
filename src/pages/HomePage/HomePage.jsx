@@ -1,12 +1,15 @@
 import React from "react";
 import "./HomePage.css";
-import { fetchOneBook } from "./BookDetailsPage";
 
 const HomePage = () => {
   return (
     <div className="home-page">
       <section className="section1">
-        <img src="path/to/image1.jpg" alt="Section 1" className="imgSection1" />
+        <img
+          src="Going offline-cuate (1).png"
+          alt="Section 1"
+          className="imgSection1"
+        />
         <div className="section1Content">
           <h1> Attention-grabbing headline</h1>
           <p>
@@ -19,18 +22,18 @@ const HomePage = () => {
       </section>
 
       <section className="section2">
-        <div className="section-content">
-          <h2 className="feature-title">Key Features</h2>
-          <div className="feature">
-            <img src="path/to/feature1.jpg" alt="Feature 1" />
+        <h2 className="feature-title">Key Features</h2>
+        <div className="section2-content">
+          <div className="feature1">
+            <img src="Book lover-pana.png" alt="Feature 1" />
             <p className="feature-text">Feature 1 description</p>
           </div>
-          <div className="feature">
-            <img src="path/to/feature2.jpg" alt="Feature 2" />
+          <div className="feature2">
+            <img src="Reading glasses-bro.png" alt="Feature 2" />
             <p className="feature-text">Feature 2 description</p>
           </div>
-          <div className="feature">
-            <img src="path/to/feature3.jpg" alt="Feature 3" />
+          <div className="feature3">
+            <img src="Conversation-pana.png" alt="Feature 3" />
             <p className="feature-text">Feature 1 description</p>
           </div>
         </div>
@@ -46,7 +49,6 @@ const HomePage = () => {
 
       <section className="section4">
         <div className="section-content">
-          fetchOneBook(3);
           <img src="path/to/image2.jpg" alt="Image 1" />
           <img src="path/to/image3.jpg" alt="Image 2" />
           <img src="path/to/image4.jpg" alt="Image 3" />

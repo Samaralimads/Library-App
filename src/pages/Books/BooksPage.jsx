@@ -2,15 +2,26 @@ import "./BooksPage.css";
 import { Link } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+
 const API_URL = "https://example-data.draftbit.com/books";
 
 function BooksPage() {
+  const [visibleCount, setVisibleCount] = useState(20);
   const [books, setBooks] = useState(null);
+  const [nextClicked, setNextClicked] = useState(false);
+
+  const handleNext = () => {
+    setVisibleCount((prevCount) => prevCount + 20);
+    setNextClicked(true);
+  };
+
+  const handlePrevious = () => {
+    setVisibleCount((prevCount) => prevCount - 20);
+  };
 
   async function fetchAllBooks() {
     try {
       const response = await axios.get(`${API_URL}`);
-      console.log(response);
       setBooks(response.data);
     } catch (error) {
       console.error(error);
@@ -25,36 +36,40 @@ function BooksPage() {
     return <p>Loading...</p>;
   }
 
+  const startIndex = visibleCount - 20;
+  const visibleBooks = books.slice(startIndex, visibleCount);
+
   return (
     <>
-      <div className="d-inline-flex flex-wrap justify-content-center align-items-center w-100 p-4">
-        {books &&
-          books.map((book, i) => {
-            return (
-              <div key={i}>
-                <Link to={"/books/" + book.id}>
-                  <div
-                    className="card m-2 p-2 text-center"
-                    style={{ width: "24rem", height: "18rem" }}
-                  >
-                    <div className="card-body">
-                      <img
-                        src={book.image_url}
-                        style={{ height: "6rem" }}
-                        alt={"image of" + book.title}
-                      />
-                      <h5 className="card-title text-truncate mt-2">
-                        {book.title}
-                      </h5>
-                      <h6 className="card-subtitle mb-3 text-muted">
-                        <em>By {book.authors}</em>
-                      </h6>
-                    </div>
-                  </div>
-                </Link>
-              </div>
-            );
-          })}
+      <div className="book-container">
+        {visibleBooks.map((book, i) => (
+          <div key={i} className="book-item">
+            <Link to={"/books/" + book.id} className="book-link">
+              <img
+                src={book.image_url}
+                className="book-image"
+                alt={"image of " + book.title}
+              />
+              <h2 className="bookTitle">{book.title}</h2>
+            </Link>
+            <h3 className="bookAuthor">
+              <em>By {book.authors}</em>
+            </h3>
+          </div>
+        ))}
+      </div>
+
+      <div className="btnContainer">
+        {nextClicked && (
+          <button className="previousBtn" onClick={handlePrevious}>
+            Previous
+          </button>
+        )}
+        {books.length > visibleCount && (
+          <button className="nextBtn" onClick={handleNext}>
+            Next
+          </button>
+        )}
       </div>
     </>
   );
