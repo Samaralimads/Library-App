@@ -9,6 +9,11 @@
   flex-direction: column;
   text-align: center;
 }
+
+.leftColumn h2 {
+  font-weight: 300;
+}
+
 .bookImg {
   width: 170rem;
   height: auto;
@@ -19,7 +24,8 @@
 }
 
 .buttons {
-  margin-top: 100px;
+  margin-top: 44px;
+  margin-bottom: 63px;
   display: flex;
   gap: 10px;
   justify-content: center;
@@ -52,9 +58,10 @@
 
 .ratingContainer {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
+  gap: 30px;
   align-items: center;
-  margin-top: 90px; /* Adjust the margin as needed */
+  margin: 50px 0px;
 }
 
 @media (max-width: 768px) {

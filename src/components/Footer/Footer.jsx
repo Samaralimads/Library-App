@@ -1,12 +1,14 @@
 import React from "react";
 import "./Footer.css";
 
-function Footer() {
+const Footer = () => {
   return (
-    <footer>
-      <div className="footer">Footer</div>
+    <footer className="footer">
+      <a href="https://github.com/Samaralimads/library-app">
+        <img src="/public/github-mark.png" alt="githubImage" />
+      </a>
     </footer>
   );
-}
-
+};
+<a href=""></a>;
 export default Footer;

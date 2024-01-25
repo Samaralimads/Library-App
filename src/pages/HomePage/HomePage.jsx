@@ -1,7 +1,14 @@
 import React from "react";
 import "./HomePage.css";
+import { useNavigate } from "react-router-dom";
 
 const HomePage = () => {
+  const navigate = useNavigate();
+
+  const handleCTAButtonClick = () => {
+    navigate("/books");
+  };
+
   return (
     <div className="home-page">
       <section className="section1">
@@ -39,7 +46,7 @@ const HomePage = () => {
             </p>
           </div>
           <div className="feature2">
-            <h2 className="featureTitle">Personalized Collection Management</h2>
+            <h2 className="featureTitle">Personalized Collection</h2>
             <img
               src="Reading glasses-bro.png"
               alt="Feature 2"
@@ -73,15 +80,18 @@ const HomePage = () => {
       </section>
 
       <section className="section3">
-        <div className="section-content">
-          <h2 className="cta-title">Call to Action</h2>
-          <div className="cta-text">
+        <div className="section3Content">
+          <h2 className="ctaTitle">Call to Action</h2>
+          <p className="ctaText">
             Keep the magic alive by organizing your reads! Track the books
             you're currently immersed in, ones on your wishlist, and those
-            you've conquered. Your reading journey, your way – Shelf-Indulgence
-            empowers you to curate a reading experience as unique as you are.
-          </div>
-          <button className="cta-button">Try Now</button>
+            you've conquered. <br />
+            Your reading journey, your way. Shelf-Indulgence empowers you to
+            curate a reading experience as unique as you are.
+          </p>
+          <button className="ctaButton" onClick={handleCTAButtonClick}>
+            Try Now
+          </button>
         </div>
       </section>
     </div>

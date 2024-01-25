@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom"; // Import Link from react-router-dom
 import "./MyBooks.css";
 
 const API_URL = "https://example-data.draftbit.com/books";
@@ -72,15 +73,21 @@ function MyBooksPage() {
       </div>
       <div className="mainContent">
         <h2>My Books</h2>
-        <div>
+        <div className="book-container">
           {myBooks.map((book) => (
-            <div key={book.bookId} className="bookCard">
-              <img
-                src={book.bookDetails.image_url}
-                alt="bookImage"
-                className="bookImg"
-              />
-              <p>Title: {book.bookDetails.title}</p>
+            <div key={book.bookId} className="book-item">
+              <Link to={"/books/" + book.bookId} className="book-link">
+                <div className="img-wrapper">
+                  <img
+                    src={book.bookDetails.image_url}
+                    alt="bookImage"
+                    className="book-img"
+                  />
+                </div>
+                <div className="content">
+                  <h2 className="book-title">{book.bookDetails.title}</h2>
+                </div>
+              </Link>
             </div>
           ))}
         </div>
