@@ -9,7 +9,8 @@ const API_URL = "https://example-data.draftbit.com/books";
 function BookDetailsPage() {
   const [book, setBook] = useState(null);
   const { id: bookId } = useParams();
-  const [selectedCategory, setSelectedCategory] = useState("read");
+  const [selectedCategory, setSelectedCategory] = useState("");
+  const [showCheckmark, setShowCheckmark] = useState(false);
 
   const fetchOneBook = async () => {
     try {
@@ -23,14 +24,20 @@ function BookDetailsPage() {
   const handleAddToCategory = (category) => {
     const storedCategories =
       JSON.parse(localStorage.getItem(`bookCategories_${book.id}`)) || {};
+    const currentCategoryState = storedCategories[category];
+
     const updatedCategories = {
       ...storedCategories,
-      [category]: true,
+      [category]: !currentCategoryState,
     };
+
     localStorage.setItem(
       `bookCategories_${book.id}`,
       JSON.stringify(updatedCategories)
     );
+
+    setSelectedCategory(category);
+    setShowCheckmark(!currentCategoryState);
   };
 
   useEffect(() => {
@@ -38,15 +45,16 @@ function BookDetailsPage() {
       await fetchOneBook();
 
       if (book && book.id) {
-        localStorage.setItem(
-          `bookCategories_${book.id}`,
-          JSON.stringify({ bookId: book.id, [selectedCategory]: true })
-        );
+        const storedCategories =
+          JSON.parse(localStorage.getItem(`bookCategories_${book.id}`)) || {};
+        const initialCategory = Object.keys(storedCategories)[0] || "";
+        setSelectedCategory(initialCategory);
+        setShowCheckmark(storedCategories[initialCategory] || false);
       }
     };
 
     fetchData();
-  }, [bookId, selectedCategory]);
+  }, [bookId]);
 
   if (!book) {
     return <p>Loading...</p>;
@@ -74,27 +82,27 @@ function BookDetailsPage() {
             </div>
             <div className="buttons">
               <button
-                onClick={() => {
-                  handleAddToCategory("wantToRead");
-                  setSelectedCategory("wantToRead");
-                }}
+                onClick={() => handleAddToCategory("wantToRead")}
+                className={selectedCategory === "wantToRead" ? "selected" : ""}
               >
+                {showCheckmark && selectedCategory === "wantToRead" ? "✓ " : ""}{" "}
                 Want to read
               </button>
               <button
-                onClick={() => {
-                  handleAddToCategory("read");
-                  setSelectedCategory("read");
-                }}
+                onClick={() => handleAddToCategory("read")}
+                className={selectedCategory === "read" ? "selected" : ""}
               >
-                Read
+                {showCheckmark && selectedCategory === "read" ? "✓ " : ""} Read
               </button>
               <button
-                onClick={() => {
-                  handleAddToCategory("currentlyReading");
-                  setSelectedCategory("currentlyReading");
-                }}
+                onClick={() => handleAddToCategory("currentlyReading")}
+                className={
+                  selectedCategory === "currentlyReading" ? "selected" : ""
+                }
               >
+                {showCheckmark && selectedCategory === "currentlyReading"
+                  ? "✓ "
+                  : ""}{" "}
                 Currently Reading
               </button>
             </div>

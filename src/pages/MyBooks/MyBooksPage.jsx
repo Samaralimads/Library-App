@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom"; // Import Link from react-router-dom
+import { Link } from "react-router-dom";
 import "./MyBooks.css";
 
 const API_URL = "https://example-data.draftbit.com/books";
@@ -48,7 +48,9 @@ function MyBooksPage() {
 
       const filteredBooks =
         filterCategory === "all"
-          ? booksData
+          ? booksData.filter((book) =>
+              Object.values(book.categories).some((value) => value)
+            )
           : booksData.filter((book) => book.categories[filterCategory]);
 
       setMyBooks(filteredBooks);
