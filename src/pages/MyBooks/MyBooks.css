@@ -13,20 +13,29 @@
   width: 100%;
   margin-bottom: 5px;
   padding: 8px;
-  background-color: #f2ead9;
+  background-color: #f4cba7;
   color: black;
   border: none;
   text-align: left;
   text-decoration: none;
   font-size: 16px;
   cursor: pointer;
+  border-radius: 5px;
 }
 
 .sidebar button:hover {
-  background-color: #f6ead5;
+  background-color: #edbb99;
 }
 
 .mainContent {
   flex-grow: 1;
-  padding: 10px;
+  padding: 20px;
+}
+
+.bookCard {
+  margin-right: 20px; /* Adjust the gap between book cards */
+}
+
+.bookImg {
+  max-width: 100%; /* Ensure the image doesn't exceed its container */
 }

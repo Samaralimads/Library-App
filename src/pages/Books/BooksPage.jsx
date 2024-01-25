@@ -1,6 +1,6 @@
 import "./BooksPage.css";
-import { Link } from "react-router-dom";
 import React, { useState, useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
 import axios from "axios";
 
 const API_URL = "https://example-data.draftbit.com/books";
@@ -9,6 +9,8 @@ function BooksPage() {
   const [visibleCount, setVisibleCount] = useState(20);
   const [books, setBooks] = useState(null);
   const [nextClicked, setNextClicked] = useState(false);
+  const location = useLocation();
+  const searchQuery = new URLSearchParams(location.search).get("search");
 
   const handleNext = () => {
     setVisibleCount((prevCount) => prevCount + 20);
@@ -19,7 +21,7 @@ function BooksPage() {
     setVisibleCount((prevCount) => prevCount - 20);
   };
 
-  async function fetchAllBooks() {
+  async function fetchBooks() {
     try {
       const response = await axios.get(`${API_URL}`);
       setBooks(response.data);
@@ -29,15 +31,39 @@ function BooksPage() {
   }
 
   useEffect(() => {
-    fetchAllBooks();
+    fetchBooks();
   }, []);
 
   if (!books) {
     return <p>Loading...</p>;
   }
 
+  const filteredBooks = searchQuery
+    ? books.filter(
+        (book) =>
+          book.title &&
+          book.title.toLowerCase().includes(searchQuery.toLowerCase())
+      )
+    : books;
+
+  if (filteredBooks.length === 0) {
+    return (
+      <div className="noBooksContainer">
+        <h1>Sorry, we coudn't find the book you were looking for. </h1>
+        <p>
+          Make sure there are no typos and that you are searching by book title.
+        </p>
+        <img
+          src="File searching-pana.png"
+          alt="Book Not Found"
+          className="notFoundImage"
+        />
+      </div>
+    );
+  }
+
   const startIndex = visibleCount - 20;
-  const visibleBooks = books.slice(startIndex, visibleCount);
+  const visibleBooks = filteredBooks.slice(startIndex, visibleCount);
 
   return (
     <>
@@ -45,16 +71,20 @@ function BooksPage() {
         {visibleBooks.map((book, i) => (
           <div key={i} className="book-item">
             <Link to={"/books/" + book.id} className="book-link">
-              <img
-                src={book.image_url}
-                className="book-image"
-                alt={"image of " + book.title}
-              />
-              <h2 className="bookTitle">{book.title}</h2>
+              <div className="img-wrapper">
+                <img
+                  src={book.image_url}
+                  className="book-image"
+                  alt={"image of " + book.title}
+                />
+              </div>
             </Link>
-            <h3 className="bookAuthor">
-              <em>By {book.authors}</em>
-            </h3>
+            <div className="content">
+              <h2 className="bookTitle">{book.title}</h2>
+              <h3 className="bookAuthor">
+                <em>By {book.authors}</em>
+              </h3>
+            </div>
           </div>
         ))}
       </div>
@@ -65,7 +95,7 @@ function BooksPage() {
             Previous
           </button>
         )}
-        {books.length > visibleCount && (
+        {filteredBooks.length > visibleCount && (
           <button className="nextBtn" onClick={handleNext}>
             Next
           </button>

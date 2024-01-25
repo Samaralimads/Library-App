@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./BookDetailsPage.css";
 import { useParams } from "react-router-dom";
+import StarRating from "../../components/StarRating/StarRating";
 
 const API_URL = "https://example-data.draftbit.com/books";
 
@@ -60,38 +61,42 @@ function BookDetailsPage() {
             <div className="bookDetails">
               <h1>{book.title}</h1>
               <h2>by {book.authors}</h2>
-              <div className="buttons">
-                <button
-                  onClick={() => {
-                    handleAddToCategory("wantToRead");
-                    setSelectedCategory("wantToRead");
-                  }}
-                >
-                  Want to read
-                </button>
-                <button
-                  onClick={() => {
-                    handleAddToCategory("read");
-                    setSelectedCategory("read");
-                  }}
-                >
-                  Read
-                </button>
-                <button
-                  onClick={() => {
-                    handleAddToCategory("currentlyReading");
-                    setSelectedCategory("currentlyReading");
-                  }}
-                >
-                  Currently Reading
-                </button>
-              </div>
             </div>
           </div>
           <div className="rightColumn">
             <div className="bookDescription">
               <h3>Description:</h3>
               {book.description}
+            </div>
+            <div className="ratingContainer">
+              <p>Avg. Rating: {book.rating}</p>
+              <StarRating />
+            </div>
+            <div className="buttons">
+              <button
+                onClick={() => {
+                  handleAddToCategory("wantToRead");
+                  setSelectedCategory("wantToRead");
+                }}
+              >
+                Want to read
+              </button>
+              <button
+                onClick={() => {
+                  handleAddToCategory("read");
+                  setSelectedCategory("read");
+                }}
+              >
+                Read
+              </button>
+              <button
+                onClick={() => {
+                  handleAddToCategory("currentlyReading");
+                  setSelectedCategory("currentlyReading");
+                }}
+              >
+                Currently Reading
+              </button>
             </div>
           </div>
         </>

@@ -1,7 +1,7 @@
 .bookContainer {
   display: flex;
   justify-content: space-between;
-  padding: 20px;
+  padding: 35px 110px;
 }
 
 .leftColumn {
@@ -10,7 +10,7 @@
   text-align: center;
 }
 .bookImg {
-  width: 20rem;
+  width: 170rem;
   height: auto;
 }
 
@@ -19,16 +19,27 @@
 }
 
 .buttons {
-  margin-top: 10px;
+  margin-top: 100px;
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  gap: 10px;
+  justify-content: center;
 }
 
 .buttons button {
-  margin-bottom: 10px;
-  width: 8rem;
-  height: 2rem;
+  width: 10rem;
+  padding: 8px;
+  background-color: #f4cba7;
+  color: black;
+  border: none;
+  text-align: center;
+  text-decoration: none;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.buttons button:hover {
+  background-color: #edbb99;
 }
 
 .rightColumn {
@@ -37,6 +48,13 @@
   margin-right: 30px;
   text-align: justify;
   font-size: 20px;
+}
+
+.ratingContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 90px; /* Adjust the margin as needed */
 }
 
 @media (max-width: 768px) {

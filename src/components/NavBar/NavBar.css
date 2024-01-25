@@ -1,15 +1,20 @@
+body {
+  margin: 0;
+  padding: 0;
+
+  /* overflow-x: hidden; */
+}
+
 .Navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #fefbf9;
-  gap: 0px;
-  height: min-content;
-  padding: 100px 0 100px;
-  position: relative;
+  background-color: #f5cba7;
+  padding: 10px 20px;
+  height: 100%;
   width: 100%;
+  position: relative;
 }
-
 .navLogo {
   margin-right: 20px;
   height: 5rem;
@@ -20,21 +25,33 @@
 
 .navLinks {
   display: flex;
-  justify-content: flex-end; /* Align links to the far end of the container */
-  align-items: center;
+  flex-wrap: nowrap;
 }
 
 .navLink {
-  margin-right: 15px;
+  margin-right: 35px;
   text-decoration: none;
   font-size: 20px;
   color: #333;
 }
 
+.searchContainer {
+  position: relative;
+  display: inline-block;
+}
+
 .searchBar {
-  margin-left: 10px;
-  padding: 5px;
+  font-size: 15px;
   border-radius: 50px;
-  border: 1px solid black;
-  font-size: 17px;
+  padding-right: 30px;
+  background-color: #f5cba7;
+}
+
+.searchIcon {
+  background-color: #f5cba7;
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  cursor: pointer;
 }
