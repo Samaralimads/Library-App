@@ -116,16 +116,16 @@
   .grid2Container,
   .section3Content,
   .section1Content {
-    padding: 20px; /* Adjust padding for smaller screens */
+    padding: 20px;
   }
 
   .section1 {
-    flex-direction: column; /* Change to column layout for smaller screens */
-    align-items: center; /* Center align horizontally */
+    flex-direction: column;
+    align-items: center;
   }
 
   .section1Content h1 {
-    font-size: 36px; /* Adjust font size for smaller screens */
+    font-size: 36px;
   }
   .imgContainer {
     padding-left: 0px;
@@ -133,15 +133,15 @@
   .section1Content p,
   .featureText,
   .ctaText {
-    font-size: 18px; /* Adjust font size for smaller screens */
+    font-size: 18px;
   }
 
   .grid2Container {
-    grid-template-columns: 1fr; /* Change to a single column for smaller screens */
-    grid-gap: 20px; /* Adjust the gap between items for smaller screens */
+    grid-template-columns: 1fr;
+    grid-gap: 20px;
   }
 
   .featureTitle {
-    font-size: 24px; /* Adjust font size for smaller screens */
+    font-size: 24px;
   }
 }
