@@ -30,11 +30,3 @@
 .rating > input:checked ~ label {
   color: #ffa723;
 }
-
-@media (max-width: 768px) {
-  .rating:not(:checked) > label {
-    float: left;
-    display: block;
-    text-align: center;
-  }
-}
