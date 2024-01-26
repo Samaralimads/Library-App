@@ -1,10 +1,20 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./StarRating.css";
 
-const StarRating = () => {
-  const [rating, setRating] = useState(1);
+const StarRating = ({ bookId, onRatingChange }) => {
+  const [rating, setRating] = useState(() => {
+    const storedRatings = JSON.parse(localStorage.getItem("bookRatings")) || {};
+    return storedRatings[bookId] || 1;
+  });
+
+  useEffect(() => {
+    onRatingChange(rating);
+  }, [rating, onRatingChange]);
 
   const handleRatingChange = (value) => {
+    const storedRatings = JSON.parse(localStorage.getItem("bookRatings")) || {};
+    storedRatings[bookId] = value;
+    localStorage.setItem("bookRatings", JSON.stringify(storedRatings));
     setRating(value);
   };
 
@@ -14,13 +24,16 @@ const StarRating = () => {
         <React.Fragment key={value}>
           <input
             type="radio"
-            id={`star${value}`}
-            name="rate"
+            id={`star${value}_${bookId}`}
+            name={`rate_${bookId}`}
             value={value}
             checked={rating === value}
             onChange={() => handleRatingChange(value)}
           />
-          <label htmlFor={`star${value}`} title={`Rating: ${value}`}></label>
+          <label
+            htmlFor={`star${value}_${bookId}`}
+            title={`Rating: ${value}`}
+          ></label>
         </React.Fragment>
       ))}
     </div>

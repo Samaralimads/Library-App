@@ -9,6 +9,7 @@ const API_URL = "https://example-data.draftbit.com/books";
 function BookDetailsPage() {
   const [book, setBook] = useState(null);
   const { id: bookId } = useParams();
+  const [rerender, setRerender] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState("");
   const [showCheckmark, setShowCheckmark] = useState(false);
 
@@ -22,35 +23,25 @@ function BookDetailsPage() {
   };
 
   const handleAddToCategory = (category) => {
-    const storedCategories =
-      JSON.parse(localStorage.getItem(`bookCategories_${book.id}`)) || {};
-    const currentCategoryState = storedCategories[category];
+    console.log("here");
+    const currentStorage = JSON.parse(localStorage.getItem(category)) || [];
+    currentStorage.push(book);
+    localStorage.setItem(category, JSON.stringify(currentStorage));
+    setRerender(!rerender);
+  };
 
-    const updatedCategories = {
-      ...storedCategories,
-      [category]: !currentCategoryState,
-    };
-
-    localStorage.setItem(
-      `bookCategories_${book.id}`,
-      JSON.stringify(updatedCategories)
+  const handleRemoveFromCategory = (category) => {
+    let currentStorage = JSON.parse(localStorage.getItem(category)) || [];
+    currentStorage = currentStorage.filter(
+      (storedBook) => storedBook.id !== Number(bookId)
     );
-
-    setSelectedCategory(category);
-    setShowCheckmark(!currentCategoryState);
+    localStorage.setItem(category, JSON.stringify(currentStorage));
+    setRerender(!rerender);
   };
 
   useEffect(() => {
     const fetchData = async () => {
       await fetchOneBook();
-
-      if (book && book.id) {
-        const storedCategories =
-          JSON.parse(localStorage.getItem(`bookCategories_${book.id}`)) || {};
-        const initialCategory = Object.keys(storedCategories)[0] || "";
-        setSelectedCategory(initialCategory);
-        setShowCheckmark(storedCategories[initialCategory] || false);
-      }
     };
 
     fetchData();
@@ -59,6 +50,27 @@ function BookDetailsPage() {
   if (!book) {
     return <p>Loading...</p>;
   }
+
+  const wantToRead =
+    book &&
+    localStorage.getItem("wantToRead") &&
+    JSON.parse(localStorage.getItem("wantToRead")).some(
+      (item) => item.id === Number(bookId)
+    );
+
+  const read =
+    book &&
+    localStorage.getItem("read") &&
+    JSON.parse(localStorage.getItem("read")).some(
+      (item) => item.id === Number(bookId)
+    );
+
+  const currentlyReading =
+    book &&
+    localStorage.getItem("currentlyReading") &&
+    JSON.parse(localStorage.getItem("currentlyReading")).some(
+      (item) => item.id === Number(bookId)
+    );
 
   return (
     <div className="bookContainer">
@@ -78,32 +90,43 @@ function BookDetailsPage() {
             </div>
             <div className="ratingContainer">
               <p>Avg. Rating: {book.rating}</p>
-              <StarRating />
+              <StarRating
+                bookId={bookId}
+                onRatingChange={() => setRerender(!rerender)}
+              />
             </div>
             <div className="buttons">
               <button
-                onClick={() => handleAddToCategory("wantToRead")}
+                onClick={() =>
+                  wantToRead
+                    ? handleRemoveFromCategory("wantToRead")
+                    : handleAddToCategory("wantToRead")
+                }
                 className={selectedCategory === "wantToRead" ? "selected" : ""}
               >
-                {showCheckmark && selectedCategory === "wantToRead" ? "✓ " : ""}{" "}
-                Want to read
+                {wantToRead && "✓ "} Want to read
               </button>
               <button
-                onClick={() => handleAddToCategory("read")}
+                onClick={() =>
+                  read
+                    ? handleRemoveFromCategory("read")
+                    : handleAddToCategory("read")
+                }
                 className={selectedCategory === "read" ? "selected" : ""}
               >
-                {showCheckmark && selectedCategory === "read" ? "✓ " : ""} Read
+                {read && "✓ "} Read
               </button>
               <button
-                onClick={() => handleAddToCategory("currentlyReading")}
+                onClick={() =>
+                  currentlyReading
+                    ? handleRemoveFromCategory("currentlyReading")
+                    : handleAddToCategory("currentlyReading")
+                }
                 className={
                   selectedCategory === "currentlyReading" ? "selected" : ""
                 }
               >
-                {showCheckmark && selectedCategory === "currentlyReading"
-                  ? "✓ "
-                  : ""}{" "}
-                Currently Reading
+                {currentlyReading && "✓ "} Currently Reading
               </button>
             </div>
           </div>

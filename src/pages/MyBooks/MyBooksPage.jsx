@@ -11,7 +11,6 @@ function MyBooksPage() {
 
   const getBookDetails = async (bookId) => {
     if (!bookId) {
-      console.error("Book ID is undefined");
       return null;
     }
 
@@ -26,20 +25,22 @@ function MyBooksPage() {
 
   useEffect(() => {
     const fetchBooksData = async () => {
-      const storedBookCategories = Object.keys(localStorage)
-        .filter((key) => key.startsWith("bookCategories_"))
+      const storedBooks = Object.keys(localStorage)
+        .filter((key) =>
+          ["wantToRead", "read", "currentlyReading"].includes(key)
+        )
         .map((key) => {
-          const bookId = key.replace("bookCategories_", "");
-          const categories = JSON.parse(localStorage.getItem(key));
-          return { categories, bookId };
-        });
+          const category = key;
+          const booksInCategory = JSON.parse(localStorage.getItem(key));
+          return booksInCategory.map((book) => ({ category, ...book }));
+        })
+        .flat();
 
-      const bookDetailsPromises = storedBookCategories.map(async (data) => {
-        const { bookId, categories } = data;
-        const bookDetails = await getBookDetails(bookId);
+      const bookDetailsPromises = storedBooks.map(async (book) => {
+        const bookDetails = await getBookDetails(book.id);
         return {
-          bookId,
-          categories,
+          bookId: book.id,
+          categories: [book.category],
           bookDetails,
         };
       });
@@ -49,9 +50,13 @@ function MyBooksPage() {
       const filteredBooks =
         filterCategory === "all"
           ? booksData.filter((book) =>
-              Object.values(book.categories).some((value) => value)
+              book.categories.some((category) =>
+                ["wantToRead", "read", "currentlyReading"].includes(category)
+              )
             )
-          : booksData.filter((book) => book.categories[filterCategory]);
+          : booksData.filter((book) =>
+              book.categories.includes(filterCategory)
+            );
 
       setMyBooks(filteredBooks);
     };
@@ -78,7 +83,7 @@ function MyBooksPage() {
         <div className="book-container">
           {myBooks.map((book) => (
             <div key={book.bookId} className="book-item">
-              <Link to={"/books/" + book.bookId} className="book-link">
+              <Link to={`/books/${book.bookId}`} className="book-link">
                 <div className="img-wrapper">
                   <img
                     src={book.bookDetails.image_url}
@@ -88,6 +93,8 @@ function MyBooksPage() {
                 </div>
                 <div className="content">
                   <h2 className="book-title">{book.bookDetails.title}</h2>
+                  <p>Authors: {book.bookDetails.authors}</p>
+                  <p>Categories: {book.categories.join(", ")}</p>
                 </div>
               </Link>
             </div>
