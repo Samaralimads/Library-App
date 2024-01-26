@@ -12,21 +12,21 @@ const HomePage = () => {
   return (
     <div className="home-page">
       <section className="section1">
-        <div className="gridContainer">
+        <div className="imgContainer">
           <img
             src="Going offline-cuate (1).png"
             alt="Section 1"
             className="imgSection1"
           />
-          <div className="section1Content">
-            <h1>Your Ultimate Book Haven</h1>
-            <p>
-              Searching for your next literary escape? Look no further! Our
-              platform is your personal gateway to a vast universe of books,
-              where you can effortlessly explore, discover, and add treasures to
-              your ever-growing collection.
-            </p>
-          </div>
+        </div>
+        <div className="section1Content">
+          <h1>Your Ultimate Book Haven</h1>
+          <p>
+            Searching for your next literary escape? Look no further! Our
+            platform is your personal gateway to a vast universe of books, where
+            you can effortlessly explore, discover, and add treasures to your
+            ever-growing collection.
+          </p>
         </div>
       </section>
 

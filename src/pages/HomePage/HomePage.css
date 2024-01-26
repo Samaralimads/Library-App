@@ -2,35 +2,39 @@
   margin: 0 auto;
 }
 
-.gridContainer {
-  display: grid;
-  grid-template-columns: 1fr 1.5fr;
-  grid-gap: 59px;
-  padding: 15px 120px 56px 52px;
-  align-items: center;
-}
-
-.imgSection1 {
-  width: 500px;
-}
-
-.section1Content {
-  max-width: 100%;
-  min-width: 274px;
-}
-
 .section1 {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
   background-color: #f5cba7;
 }
 
+.imgContainer {
+  flex: 1;
+  padding-left: 70px;
+}
+
+.imgSection1 {
+  width: 100%;
+  max-width: 500px;
+  height: auto;
+}
+
+.section1Content {
+  flex: 1;
+  max-width: 100%;
+  min-width: 274px;
+  padding: 20px 70px 20px 20px;
+}
+
 .section1Content h1 {
-  font-size: 49px;
+  font-size: 2.5rem;
   font-weight: bolder;
   text-align: center;
 }
 
 .section1Content p {
-  font-size: 25px;
+  font-size: 1.5625rem;
   font-weight: 300;
   text-align: justify;
 }
@@ -107,23 +111,37 @@
 .ctaButton:hover {
   background-color: #febd8b;
 }
+@media (max-width: 768px) {
+  .section1,
+  .grid2Container,
+  .section3Content,
+  .section1Content {
+    padding: 20px; /* Adjust padding for smaller screens */
+  }
 
-.ctaText @media (max-width: 768px) {
-  .gridContainer {
-    grid-gap: 20px; /* Adjust the gap between columns for smaller screens */
+  .section1 {
+    flex-direction: column; /* Change to column layout for smaller screens */
+    align-items: center; /* Center align horizontally */
   }
 
   .section1Content h1 {
     font-size: 36px; /* Adjust font size for smaller screens */
   }
-
-  .section1Content p {
-    font-size: 18px;
+  .imgContainer {
+    padding-left: 0px;
   }
-}
+  .section1Content p,
+  .featureText,
+  .ctaText {
+    font-size: 18px; /* Adjust font size for smaller screens */
+  }
 
-@media (max-width: 576px) {
-  .gridContainer {
-    padding: 0px 10px;
+  .grid2Container {
+    grid-template-columns: 1fr; /* Change to a single column for smaller screens */
+    grid-gap: 20px; /* Adjust the gap between items for smaller screens */
+  }
+
+  .featureTitle {
+    font-size: 24px; /* Adjust font size for smaller screens */
   }
 }
